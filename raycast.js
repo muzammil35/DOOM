@@ -50,19 +50,12 @@ class Player {
     update() {
         this.rotationAngle += this.turnDirection * this.rotationSpeed;
 
-        console.log(this.rotationAngle);
 
-        if (this.rotationAngle > 2 * Math.PI) {
-            this.rotationAngle = this.rotationAngle % (2 * Math.PI);
-        } else if (this.rotationAngle < 0) {
-            this.rotationAngle = (2 * Math.PI) - this.rotationAngle;
+        var moveStep = this.walkDirection * this.moveSpeed;
 
-        }
-
-        this.rotationAngle < Math.PI / 2 || this.rotationAngle > 3*Math.PI/2 ? this.x += this.walkDirection * abs(Math.cos(this.rotationAngle)) : this.x -= this.walkDirection * abs(Math.cos(this.rotationAngle)) 
-        this.rotationAngle < Math.PI / 2  || this.rotationAngle < Math.PI ? this.y += this.walkDirection * abs(Math.sin(this.rotationAngle))  : this.y -= this.walkDirection * abs(Math.sin(this.rotationAngle))
-
-        console.log(this.y);
+        this.x += Math.cos(this.rotationAngle) * moveStep;
+        this.y += Math.sin(this.rotationAngle) * moveStep;
+        //console.log(this.y);
     }
 
     render() {
