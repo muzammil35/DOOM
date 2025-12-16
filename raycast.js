@@ -47,14 +47,29 @@ class Player {
         this.rotationSpeed = 2 * (Math.PI / 180);
     }
 
-    update() {
+    update(grid) {
         this.rotationAngle += this.turnDirection * this.rotationSpeed;
 
 
         var moveStep = this.walkDirection * this.moveSpeed;
 
-        this.x += Math.cos(this.rotationAngle) * moveStep;
-        this.y += Math.sin(this.rotationAngle) * moveStep;
+        var candidate_move = [this.x + (Math.cos(this.rotationAngle) * moveStep), this.y + (Math.sin(this.rotationAngle) * moveStep)];
+
+        var tile_col = Math.floor(candidate_move[0] / TILE_SIZE);
+        var tile_row = Math.floor(candidate_move[1] / TILE_SIZE);
+
+        //console.log(tile_row, tile_col);
+
+        //console.log(grid.grid);
+
+        if (grid.grid[tile_row][tile_col] == 0) {
+
+            this.x += Math.cos(this.rotationAngle) * moveStep;
+            this.y += Math.sin(this.rotationAngle) * moveStep;
+
+        }
+
+        
         //console.log(this.y);
     }
 
@@ -102,13 +117,13 @@ function setup() {
     createCanvas(WINDOW_WIDTH, WINDOW_HEIGHT)
 }
 
-function update() {
-    player.update();
+function update(grid) {
+    player.update(grid);
     // update all game objects before rendering next frame
 }
 
 function draw() {
-    update();
+    update(grid);
     grid.render();
     player.render();
     
